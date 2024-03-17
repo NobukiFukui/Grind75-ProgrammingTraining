@@ -13,22 +13,59 @@
 # URL: https://leetcode.com/problems/valid-parentheses/description/
 # ===============================================================
 
-# %%
+# %% 2nd
+# class Solution:
+#     def isValid(self, s: str) -> bool:
+
+#         stack_list = []
+#         n_str = len(s)
+
+#         for i in range(n_str):
+#             if s[i] == '(' or s[i] == '{' or s[i] == '[':
+#                 stack_list.append(s[i])
+#             elif s[i] == ')' and stack_list != []:
+#                 if stack_list[-1] != '(':
+#                     return False
+#                 stack_list.pop()
+#             elif s[i] == '}' and stack_list != []:
+#                 if stack_list[-1] != '{':
+#                     return False
+#                 stack_list.pop()
+#             elif s[i] == ']' and stack_list != []:
+#                 if stack_list[-1] != '[':
+#                     return False
+#                 stack_list.pop()
+#             else:
+#                 return False
+#         if stack_list != []:
+#             return False
+#         else:
+#             return True
+
+# s = "()}"
+# Solution.isValid([],s)
+
+
+# %% 3rd
+
+
 class Solution:
     def isValid(self, s: str) -> bool:
-        for i in range(0, len(s)-1, 2):
-            if s[i] == '(' or s[i] == '{' or s[i] == '[':
-                if (s[i] == '(' and s[i+1] != ')') or (s[i] == '[' and s[i+1] != ']') or (s[i] == '{' and s[i+1] != '}'):
-                    return False
+        stack_list = []
+        pairs = {"(": ")", "[": "]", "{": "}"}
+        n_str = len(s)
+        for bracket in s:
+            if bracket in pairs:
+                stack_list.append(bracket)
             else:
-                return False
-            
+                if stack_list == [] or bracket != pairs[stack_list.pop()]:
+                    return False
+        if stack_list == []:
             return True
-                    
+        else:
+            return False
 
 
-s = "()"
+s = "("
 Solution.isValid([],s)
-
-
 # %%
