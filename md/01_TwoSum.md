@@ -51,6 +51,22 @@ class Solution:
                         return [ i, j ]
 ```
 
+# 3rd修正
+不要な if j != iを削除
+jについてのforループについてi+1からlen(nums)で動いている以上，j = iとなる場合は存在しない
+（つまり，いつでもj!=1である）
+
+```python
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        for i in range(len(nums)):
+            for j in range(i+1, len(nums)):
+                if nums[i] + nums[j] == target:
+                    return [ i, j ]
+```
+
+
+
 # 4th
 ハッシュテーブル（辞書配列）を利用する
 https://leetcode.com/problems/two-sum/solutions/3619262/3-method-s-c-java-python-beginner-friendly/
