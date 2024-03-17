@@ -1,7 +1,7 @@
 # 01_TwoSum
-Author: WaveAlchemist
-Description: 
-Pick up indeces of list where sum of two elements is X
+Author: WaveAlchemist  
+Description:  
+Pick up indeces of list where sum of two elements is X  
 URL: https://leetcode.com/problems/two-sum/
 
 
