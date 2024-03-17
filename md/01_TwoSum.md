@@ -1,11 +1,9 @@
-# ===============================================================
-# (program) 01_TwoSum
-# WaveAlchemist
-# Description: 
-# Pick up indeces of list where sum of two elements is X
-# URL: https://leetcode.com/problems/two-sum/
-# 
-# ===============================================================
+# 01_TwoSum
+Author: WaveAlchemist
+Description: 
+Pick up indeces of list where sum of two elements is X
+URL: https://leetcode.com/problems/two-sum/
+
 
 # 1st
 方針：numsの各要素をi, jの2つの変数を用いてforループで参照し，2つの要素和を計算する
