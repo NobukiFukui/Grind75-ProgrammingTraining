@@ -89,22 +89,37 @@
 # Solution.isValid([],s)
 
 # %%
+# class Solution:
+#     def isValid(self, s: str) -> bool:
+#         stack = []
+#         pairs =  { ')': '(', '}': '{', ']': '[' } 
+#         for ch in s:
+#             if ch == '(' or ch == '{' or ch == '[':
+#                 stack.append(ch)
+#             else:
+#                 if stack == []:
+#                     return False
+#                 else:
+#                     if stack.pop() != pairs[ch]:
+#                         return False
+#         return stack == []
+
+
+# s = "("
+# Solution.isValid([],s)
+# %% 6th
 class Solution:
     def isValid(self, s: str) -> bool:
         stack = []
-        pairs =  { ')': '(', '}': '{', ']': '[' } 
+        pairs = {')':'(',']':'[','}':'{'}
         for ch in s:
             if ch == '(' or ch == '{' or ch == '[':
                 stack.append(ch)
             else:
-                if stack == []:
+                if not stack:
                     return False
-                else:
-                    if stack.pop() != pairs[ch]:
-                        return False
-        return stack == []
-
-
+                if stack.pop() != pairs[ch]:
+                    return False
+        return not stack
 s = "("
 Solution.isValid([],s)
-# %%
