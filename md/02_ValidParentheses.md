@@ -95,7 +95,55 @@ class Solution:
             return False
 ```
 
+# 4th
+方針：
+小田さんのアドバイス通り，未使用の変数n_strを削除
 
+結果：
+成功
+Runtime 41ms -> 31ms
+
+```python
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack_list = []
+        pairs = {"(": ")", "[": "]", "{": "}"}
+        for bracket in s:
+            if bracket in pairs:
+                stack_list.append(bracket)
+            else:
+                if stack_list == [] or bracket != pairs[stack_list.pop()]:
+                    return False
+        if stack_list == []:
+            return True
+        else:
+            return False
+```
+
+# 5th
+方針：
+野田さんのアドバイスに基づいて2ndのコードを修正
+
+結果：
+成功
+Runtime 38ms
+
+```python
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        pairs =  { ')': '(', '}': '{', ']': '[' } 
+        for ch in s:
+            if ch == '(' or ch == '{' or ch == '[':
+                stack.append(ch)
+            else:
+                if stack == []:
+                    return False
+                else:
+                    if stack.pop() != pairs[ch]:
+                        return False
+        return stack == []
+```
 
 
 

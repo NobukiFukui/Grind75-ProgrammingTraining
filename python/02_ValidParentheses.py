@@ -49,21 +49,60 @@
 # %% 3rd
 
 
+# class Solution:
+#     def isValid(self, s: str) -> bool:
+#         stack_list = []
+#         pairs = {"(": ")", "[": "]", "{": "}"}
+#         n_str = len(s)
+#         for bracket in s:
+#             if bracket in pairs:
+#                 stack_list.append(bracket)
+#             else:
+#                 if stack_list == [] or bracket != pairs[stack_list.pop()]:
+#                     return False
+#         if stack_list == []:
+#             return True
+#         else:
+#             return False
+
+
+# s = "("
+# Solution.isValid([],s)
+# %% 4th
+# class Solution:
+#     def isValid(self, s: str) -> bool:
+#         stack = []
+#         pairs = {"(": ")", "[": "]", "{": "}"}
+#         for bracket in s:
+#             if bracket in pairs:
+#                 stack.append(bracket)
+#             else:
+#                 if stack == [] or bracket != pairs[stack.pop()]:
+#                     return False
+#         if stack == []:
+#             return True
+#         else:
+#             return False
+
+
+# s = "("
+# Solution.isValid([],s)
+
+# %%
 class Solution:
     def isValid(self, s: str) -> bool:
-        stack_list = []
-        pairs = {"(": ")", "[": "]", "{": "}"}
-        n_str = len(s)
-        for bracket in s:
-            if bracket in pairs:
-                stack_list.append(bracket)
+        stack = []
+        pairs =  { ')': '(', '}': '{', ']': '[' } 
+        for ch in s:
+            if ch == '(' or ch == '{' or ch == '[':
+                stack.append(ch)
             else:
-                if stack_list == [] or bracket != pairs[stack_list.pop()]:
+                if stack == []:
                     return False
-        if stack_list == []:
-            return True
-        else:
-            return False
+                else:
+                    if stack.pop() != pairs[ch]:
+                        return False
+        return stack == []
 
 
 s = "("
