@@ -79,3 +79,29 @@ class Solution:
 
 
 ```
+
+
+# 3rd
+野田さんのご意見をもとに修正
+dummy -> sentinel
+if list1 or list2の時点で
+どちらかには必ず該当するので，
+list1, list2についてそれぞれif文を置いたほうが分かりやすい
+
+```Python
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        cur = sentinel = ListNode()
+        while list1 and list2:               
+            if list1.val < list2.val:
+                cur.next = list1
+                list1, cur = list1.next, list1
+            else:
+                cur.next = list2
+                list2, cur = list2.next, list2
+        if list1:
+            cur.next = list1
+        if list2:
+            cur.next = list2            
+        return sentinel.next
+```

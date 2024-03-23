@@ -60,9 +60,32 @@ print(ln1.next)
 
 # %% 2nd
 
+# class Solution:
+#     def mergeTwoLists(self, list1: list[ListNode], list2: list[ListNode]) -> list[ListNode]:
+#         cur = dummy = ListNode()
+#         while list1 and list2:               
+#             if list1.val < list2.val:
+#                 cur.next = list1
+#                 list1, cur = list1.next, list1
+#             else:
+#                 cur.next = list2
+#                 list2, cur = list2.next, list2
+                
+#         if list1 or list2:
+#             cur.next = list1 if list1 else list2
+            
+#         return dummy.next
+
+# list1 = ListNode(1,ListNode(2,ListNode(4)))
+# list2 = ListNode(1,ListNode(2,ListNode(3)))
+# Solution.mergeTwoLists([],list1,list2)
+
+
+# %% 3rd
+
 class Solution:
     def mergeTwoLists(self, list1: list[ListNode], list2: list[ListNode]) -> list[ListNode]:
-        cur = dummy = ListNode()
+        cur = sentinel = ListNode()
         while list1 and list2:               
             if list1.val < list2.val:
                 cur.next = list1
@@ -70,15 +93,12 @@ class Solution:
             else:
                 cur.next = list2
                 list2, cur = list2.next, list2
-                
-        if list1 or list2:
-            cur.next = list1 if list1 else list2
-            
-        return dummy.next
+        if list1:
+            cur.next = list1
+        if list2:
+            cur.next = list2            
+        return sentinel.next
 
 list1 = ListNode(1,ListNode(2,ListNode(4)))
 list2 = ListNode(1,ListNode(2,ListNode(3)))
 Solution.mergeTwoLists([],list1,list2)
-
-
-# %%
