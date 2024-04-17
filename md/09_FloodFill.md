@@ -126,3 +126,34 @@ class Solution:
         return image
         
 ```
+
+# 5th
+・範囲チェック時のif文の変更（条件を見やすくしました）
+・color_orgを使用しない部分はカット
+
+``` Python
+class Solution:
+    def recursiveFill(self, pixel, sr, sc, color_org, color_new):
+        # if sr and sc are out of range
+        if not (0 <= sr < len(pixel)) or not (0 <= sc < len(pixel[0])):
+            return
+        # check corresponding cell has the same color
+        if pixel[sr][sc] != color_org:
+            return
+        # fill color
+        pixel[sr][sc] = color_new
+        # define direction vectors
+        direction_rows = [0, 1, 0, -1]
+        direction_cols = [1, 0, -1, 0]
+        # call recursive functions at adjacent cells
+        for i in range(4):
+            self.recursiveFill(pixel, sr + direction_rows[i], sc + direction_cols[i], color_org, color_new)
+                
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        # check if color at target cell is the same as color
+        if image[sr][sc] == color:
+            return image
+        # call recursive function
+        self.recursiveFill(image, sr, sc, image[sr][sc], color)
+        return image
+```
