@@ -111,3 +111,29 @@ class Solution:
         _, i_Balanced = GetHeight(root)
         return i_Balanced
 ```
+
+# 5th
+GetHeightのネーミングを変更
+isbalancedの要素を追加
+
+``` Python
+class Solution:
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        def GetHeight_and_isBalanced(node):
+            # check if base root or not
+            if not node: return 0, True
+
+            # check height and isBalanced
+            left_height, i_leftBalanced = GetHeight_and_isBalanced(node.left)
+            right_height, i_rightBalanced = GetHeight_and_isBalanced(node.right)
+
+            # calculate current node height
+            current_height = max(left_height, right_height) + 1
+
+            # check if current node is balanced or not
+            i_Balanced = i_leftBalanced and i_rightBalanced and (abs(left_height - right_height) <=1)
+
+            return current_height, i_Balanced
+        _, i_Balanced = GetHeight_and_isBalanced(root)
+        return i_Balanced
+```
