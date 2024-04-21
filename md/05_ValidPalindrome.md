@@ -41,3 +41,21 @@ class Solution:
                 return False
         return True
 ```
+
+# 3rd
+野田さんのコメントを参考に修正
+・s_lower -> lower
+・int(len_s/2) -> len_s // 2
+
+``` Python
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        s_filtered = filter(str.isalnum, s)
+        s = "".join(s_filtered)
+        lower = s.lower()
+        len_s = len(s)
+        for i in range(len_s // 2):
+            if lower[i] != lower[-i-1]:
+                return False
+        return True
+```
