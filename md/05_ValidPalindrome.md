@@ -45,7 +45,7 @@ class Solution:
 # 3rd
 野田さんのコメントを参考に修正
 ・s_lower -> lower
-・int(len_s/2) -> len_s // 2
+・int(len_s/2) -> len_s // 2 (PEP8に注意)
 
 ``` Python
 class Solution:
@@ -59,3 +59,20 @@ class Solution:
                 return False
         return True
 ```
+
+# 4th
+高速化できないかを検討
+- lequoriceさんコメント
+こちら空間計算量はどうなってると思いますか？減らせそうですか？
+⇒パッと見では難しそう？？？　ひとまずforループを使わない手法を考えてみたが，なかなかうまくいかず
+実行時間が速いサンプルを参考にした
+
+``` Python
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        s_filtered = filter(str.isalnum, s)
+        s = "".join(s_filtered)
+        lower = s.lower()
+        return lower == lower[::-1]
+```
+    
