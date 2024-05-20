@@ -20,6 +20,9 @@ class MyQueue:
         self.instack.append(x)
 
     def pop(self) -> int:
+        # exception
+        if not self.outstack and not self.instack:
+            raise Exception( "pop from empty list" )
         # call peek
         self.peek()
         # return deleted element by pop
@@ -37,10 +40,10 @@ class MyQueue:
         return not self.instack and not self.outstack
 #%%
 myqueue = MyQueue()
-myqueue.push(1)
-myqueue.push(2)
-print(myqueue.peek())
+# myqueue.push(1)
+# myqueue.push(2)
+# print(myqueue.peek())
 print(myqueue.pop())
-print(myqueue.empty())
+# print(myqueue.empty())
 
 # %%

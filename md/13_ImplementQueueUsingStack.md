@@ -3,11 +3,12 @@ Author: WaveAlchemist
 URL:https://leetcode.com/problems/implement-queue-using-stacks/
 
 # 1st 
-入力用出力用それぞれについてstackを用意
-pushではinstackとなるリストにappendを適用
-peekではinstackの各要素をoutstackに逆向きに追加し，outstackの末尾を返す
-popはpeekを呼び出した後にoutstackの先頭をpopする
-emptyはinstackとoutstackが空になっていないかをチェック
+- 入力用出力用それぞれについてstackを用意
+- pushではinstackとなるリストにappendを適用
+- peekではinstackの各要素をoutstackに逆向きに追加し，outstackの末尾を返す
+- popはpeekを呼び出した後にoutstackの先頭をpopする
+- emptyはinstackとoutstackが空になっていないかをチェック
+
 参考：
 https://qiita.com/mhiro216/items/adc892ede78eec06ef96
 
@@ -41,3 +42,43 @@ class MyQueue:
     def empty(self) -> bool:
         return not self.instack and not self.outstack
 ```
+
+# 2nd
+
+- 小田さんコメント：このコード、現状、空で pop すると何が起きますか? 空で pop したときにどのような動作をすることが一番いいでしょうか?⇒
+- [] は型が変わるので、それよりは例外を投げるほうがいいかなあと思います。ただ、例外はコントロールフローが変わるのでややこしくなります。
+- 方針 Exception を投げる, なんらかの特殊な値を返す, プログラムが終了する⇒Exceptionを投げるで対応してみる
+
+``` Python
+class MyQueue:
+
+    def __init__(self):
+        # initiate instack and outstack as empty list
+        self.instack, self.outstack = [], []
+
+    def push(self, x: int) -> None:
+        # append x at the end of instack
+        self.instack.append(x)
+
+    def pop(self) -> int:
+        # exception
+        if not self.outstack and not self.instack:
+            raise Exception( "pop from empty list" )
+        # call peek
+        self.peek()
+        # return deleted element by pop
+        return self.outstack.pop()
+
+    def peek(self) -> int:
+        # if outstack is empty, the elements in instack are moved into outstack
+        if not self.outstack:
+            while self.instack:
+                self.outstack.append( self.instack.pop() )
+        # return the end element of outstack
+        return self.outstack[-1]
+
+    def empty(self) -> bool:
+        return not self.instack and not self.outstack
+```
+
+
