@@ -60,3 +60,28 @@ class Solution:
         return sorted(s) == sorted(t)
 ```
 
+# 5th
+countを知らない想定で書いてみる
+⇒ defaultdictを使った解法
+
+参照
+- https://docs.python.org/ja/3/library/collections.html#collections.defaultdict
+
+```Python
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        # check if length of each string
+        if len(s) != len(t):
+            return False
+        # make default dictionary for counting
+        char_count = defaultdict(int)
+        # count number of each alphabet
+        for char in s:
+            char_count[char] += 1
+        # check if number of each alphabet in string t
+        for char in t:
+            if char_count[char] == 0: # t does not have char included in s
+                return False
+            char_count[char] -= 1
+        return True
+```
