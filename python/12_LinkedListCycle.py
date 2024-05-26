@@ -32,3 +32,19 @@ class Solution:
         return True
 
 #%%
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        # check if head is null -> false (no cycle)
+        if not head:
+            return False
+        # set pointer nodes, slow and fast
+        # slow checks every node / fast checks every two nodes
+        slow = head
+        fast = head.next
+        # shift slow and fast nodes unless both nodes meet toghter
+        while fast and fast.next:
+            if slow == fast:
+                return True
+            slow = slow.next
+            fast  = fast.next.next
+        return False
