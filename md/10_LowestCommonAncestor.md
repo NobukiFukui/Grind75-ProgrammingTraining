@@ -67,3 +67,45 @@ class Solution:
         else:
             return root
 ```
+
+# 4th
+頂いたコメントをもとに修正
+ - L#65をelifとするか、elseを使わない方が一貫性があるかと思います。(liquoriceさん)
+ ⇒ 見やすさの観点でelif？
+
+再構築時の所要時間は2min39s
+
+``` Python
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if p.val < root.val and q.val < root.val:   # search left side of the tree
+            return self.lowestCommonAncestor(root.left, p, q)
+        elif p.val > root.val and q.val > root.val: # search right side of the tree
+            return self.lowestCommonAncestor(root.right, p, q)
+        else:                                       # root itself is LCA
+            return root
+
+```
+
+また，以下のコメントについても検討
+ - (2ndについて) root を変更していく点にやや違和感を感じました。 node かなにかに代入したあと、 node を変更していくほうが良いかもしれません。(野田さん)
+⇒動かす用のnodeを用意し最初にrootを代入した
+
+``` Python
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        # decide large or small value of trees
+        small = min(p.val, q.val)
+        large = max(p.val, q.val)
+        # set node to be checked
+        node = root
+        # repeat 
+        while node:
+            if node.val > large:   # p and q belong to the left subtree
+                node = node.left
+            elif node.val < small: # p and q belong to the right subtree
+                node = node.right
+            else:                  # root is the LCA b/w p and q
+                return node
+        return None                # no LCA is detected
+```
