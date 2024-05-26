@@ -59,3 +59,24 @@ class Solution:
                 left = mid + 1
         return left
 ```
+
+# 4th
+レビューをもとに修正．また，制約条件などをコメントに追記．
+1から10分以内に再構築できるようにしました．
+- 整数の割り算は//が使えます。(liquorice様)
+
+``` Python
+class Solution:
+    def firstBadVersion(self, n: int) -> int:
+        left = 1 
+        right = n 
+        # left can be bad/good version / right must be bad version
+        # the first bad version is b/w left and right, both side inclusive
+        while left < right:
+            mid = left + (right - left) // 2
+            if isBadVersion(mid):
+                right = mid    # current version is bad version
+            else:
+                left = mid + 1 # current version is good version -> mid + 1 should be checked
+        return left
+```
