@@ -10,12 +10,13 @@
 # %% 1st
 class Solution:
     def isPalindrome(self, s: str) -> bool:
+        # filter() 関数を文字列に適用
         s_filtered = filter(str.isalnum, s)
         s = "".join(s_filtered)
-        lower = s.lower()
+        s_lower = s.lower()
         len_s = len(s)
-        for i in range(len_s // 2):
-            if lower[i] != lower[-i-1]:
+        for i in range(int(len_s/2)):
+            if s_lower[i] != s_lower[-i-1]:
                 return False
         return True
 
