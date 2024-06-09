@@ -127,3 +127,94 @@ class Solution:
             fast  = fast.next.next
         return False
 ```
+
+# 6th
+頂いたコメントをもとに再度修正
+- 個人的にはエッジケース（ここでいう head == None のケース）も特別扱いせず通常の処理とまとめて扱えるように関数を修正してもよいかと思いました。(thonda様)
+
+
+``` Python
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        # set pointer nodes, slow and fast
+        slow = head
+        fast = head
+        # shift slow and fast nodes unless both nodes meet together
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
+```
+# 7th 
+小田さんコメントをもとに，色々な書き方のパターンを確認する
+当たり前ではあるが単純にコードが動いて終わりではなく，コードの書き方に意図を持たせることが重要であることを再確認した．
+
+
+1) 無限ループを使用する場合
+
+意図：
+headを2つ動かして，動かない場合はループなし（False）
+動く場合は引き続き動かす
+同じところに来たらループありと宣言（True）
+これを繰り返す．
+```Python
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        fast = slow = head
+        while 1:
+            if fast is None or fast.next is None:
+                return None
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+```
+
+2) 関数を用いる場合
+
+意図：
+headを2つ動かして，動かない場合はループなし（False）
+動く場合は引き続き動かす
+同じところに来たらそのノード（つまりcatch_up_point）を返す
+catch_up_pointありならループあり（True），なければなし（False）
+
+```Python
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+    # function of find nodes where two nodes meet together
+        def find_catch_up_point(head):
+            fast = slow = head           
+            # shift slow and fast nodes unless both nodes meet together
+            while fast and fast.next:
+                slow = slow.next
+                fast = fast.next.next
+                if slow == fast:
+                    return fast
+            return None
+        # main
+        catch_up_point = find_catch_up_point(head)
+        return catch_up_point is not None
+```
+3) 6thそのまま
+
+意図：headを2つ動かして，動かない場合はループなし（False）
+動く場合は引き続き動かす
+同じところに来たらループありと宣言（True）
+これを繰り返す．
+⇒無限ループのほうが素直な書き方？？
+
+``` Python
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        # set pointer nodes, slow and fast
+        slow = fast = head
+        # shift slow and fast nodes unless both nodes meet together
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
+```
