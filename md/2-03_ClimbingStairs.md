@@ -56,3 +56,40 @@ class Solution:
             ways_lower = tmp            # renew no. of ways to climb lower stairs
         return ways_current
 ```
+
+# 4th
+頂いたレビューをもとに再構築(何も見ずに5分で構築)
+- いわゆる動的計画法で、DPテーブル(List)を用意して、前の情報を元に各値を更新していく形でも書けると思います (Mike0121様)
+
+``` Python
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        # make DP table (n = 0 and 1 already included)
+        options = [1, 1]
+        # n = 0 or 1 --> 1 (early return)
+        if n <= 1:
+            return options[n]
+        # n >= 2 --> options[n] = options[n-1] + options[n-2]
+        # initialize iteration pointer
+        i = 2
+        while i <= n:
+            options.append( options[i-2] + options[i-1] )
+            i += 1
+        return options[n]
+```
+# 5th
+whileループよりもforループのほうが見やすいと判断し，書き直し
+
+```Python
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        # make DP table (n = 0 and 1 already included)
+        options = [1, 1]
+        # n = 0 or 1 --> 1 (early return)
+        if n <= 1:
+            return options[n]
+        # n >= 2 --> options[n] = options[n-1] + options[n-2]
+        for i in range(2, n+1):
+            options.append( options[i-2] + options[i-1] )
+        return options[n]
+```
