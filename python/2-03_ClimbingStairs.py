@@ -19,3 +19,4 @@ class Solution:
 solution = Solution()
 n = 15
 print(solution.climbStairs(n))
+# %%
