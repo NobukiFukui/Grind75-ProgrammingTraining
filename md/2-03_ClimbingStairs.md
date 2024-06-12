@@ -93,3 +93,32 @@ class Solution:
             options.append( options[i-2] + options[i-1] )
         return options[n]
 ```
+
+# 6th
+小田さんのコメントをもとに修正
+
+
+- Python は
+a, b = a + b, a
+みたいな代入ができますが、したほうがいいかは微妙ですねえ。
+- 再帰で書く方法があるかと思います。
+
+コードの意図：メモ用の辞書を作成して，既にa(n)を計算していればそれを返す．そうでなければ，再帰を用いて
+a(n) = a(n-2) + a(n-1)を行う
+備考：@lru_cacheがないと時間がかかりすぎてtime limitになってしまった．
+https://docs.python.org/ja/3/library/functools.html
+
+``` Python
+class Solution:
+    @lru_cache(None)
+    def climbStairs(self, n: int) -> int:
+        memo = {}
+        if n in memo:
+            return memo[n]
+        if n <= 2:
+            result = n
+        else:
+            result = self.climbStairs(n - 1) + self.climbStairs(n - 2) 
+        return result     
+
+```
