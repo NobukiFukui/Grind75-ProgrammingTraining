@@ -37,3 +37,39 @@ class Solution:
 
 
 ```
+
+# 3rd
+頂いたコメントをもとにコードを再構築する
+- 自然な発想としては、偶数個の文字は全部使って、奇数個の文字はあれば一個だけ使うといった感じだと思います。やっていることに対して、コードが複雑に感じました。(liquorice様)
+
+方針：
+1) 偶数個の文字は両サイドに半分ずつ配列させる
+2) 奇数個の文字はn-1個だけ偶数個の文字と同様に配列させる
+3) 真ん中に奇数個の文字を1個だけ配列させる
+例：aaaaabbccdde　⇒　aaaa ⇒ baaaab　⇒　・・・
+⇒ bcdaaeaadcb or bcdaaaaadcb
+
+最終的に4分2秒で構築できました
+``` Python
+class Solution:
+    def longestPalindrome(self, s: str) -> int:
+        # default dict for counting characters
+        char_count = defaultdict(int)
+        # count characters
+        for char in s:
+            char_count[char] += 1
+        # initialize counter for length of palindorome
+        count = 0
+        odd_found = False
+        # consitute palidorome
+        for char in char_count.keys():
+            if char_count[char] % 2 == 0: # even number -> use all
+                count += char_count[char]
+            else: # odd number -> use all characters except one character
+                count += char_count[char] - 1
+                odd_found = True
+        if odd_found:
+            count += 1 # add one character at center for odd character
+        return count
+```
+
