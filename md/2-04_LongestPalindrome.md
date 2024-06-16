@@ -136,3 +136,31 @@ class Solution:
         return palindrome_length
 ```
 
+# 5th
+小田さんのコメントに対応. 何も見ないで3分ぐらいで構築可能
+- palindrome_length += char_count[char] // 2 * 2
+odd_found = char_count[char] % 2 == 1
+は一応候補ですかね。
+
+
+``` Python
+class Solution:
+    def longestPalindrome(self, s: str) -> int:
+        # default dictionary for counting characters
+        char_count = defaultdict(int)
+        # count each character
+        for char in s:
+            char_count[char] += 1
+        # initialize parameters
+        palindrome_length = 0
+        odd_found = False
+        # constitute palindrome and count its length
+        # even -> use all characters / odd -> use all except one characters
+        for char in char_count:
+            palindrome_length += char_count[char] // 2 * 2
+            odd_found = char_count[char] % 2 == 1 or odd_found
+        # only one character having odd numbers can be added at center of palindrome
+        if odd_found:
+            palindrome_length += 1
+        return palindrome_length
+```
