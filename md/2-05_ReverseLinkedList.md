@@ -41,3 +41,45 @@ class Solution:
             return reverseListHelper(curr, front)
         return reverseListHelper(None, head)
 ```
+
+# 5th
+discord上の議論を見て再度整理
+https://github.com/ryoooooory/LeetCode/pull/14
+⇒currよりはnode??
+
+odaさんコメント：
+ループは仕事の引き継ぎだと思うといいんじゃないでしょうか。
+
+「直径 1 m 金属の輪っか」に 2 m の鎖が生えていてその先に「南京錠」がついているとしましょう。LinkedList とは、これを一直線に並べて、南京錠を隣の輪っかにつなげていったものです。最後の南京錠は何にもつながっていません。
+
+この南京錠の鎖が1万個あるので、一日1000個ずつ担当を決めてひっくり返していきます。あなたはこの職場に3日目に来ました。何が引き継ぎされていなかったら怒り出しますか。
+
+kitakenコメント：
+未処理のlistnode⇒rev(reverseの意味), 処理済みのlistnode⇒node
+
+``` Python
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        node = head
+        prev = None
+        front = None
+        while node:
+            front = node.next
+            node.next = prev
+            prev = node
+            node = front
+        return prev
+```
+
+``` Python
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        def reverseListHelper(rev, node):
+            if not node:
+                return rev
+            front = node.next
+            node.next = rev
+            return reverseListHelper(node, front)
+        return reverseListHelper(None, head)
+```
+
