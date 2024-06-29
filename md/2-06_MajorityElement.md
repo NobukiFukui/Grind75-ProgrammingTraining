@@ -67,3 +67,23 @@ class Solution:
             if num_count[num] > len(nums) // 2:
                 return num
 ```
+# 4th
+・kouさんのコメント
+こちら len（）がどのくらいコスト掛かるかはみておいても良いと思いました。
+ループの中で使うより先に定義して置く方が良いと思います
+⇒
+timeitを用いて調べると以下のように実行時間に差が出現．
+事前定義をする場合 time: 0.7654874669999856
+事前定義をしない場合 time: 0.9718373919999976
+
+``` Python
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        nums_count = defaultdict(int)
+        nums_length = len(nums)
+        for num in nums:
+            nums_count[num] += 1
+            if nums_count[num] > nums_length // 2:
+                return num
+```
+
