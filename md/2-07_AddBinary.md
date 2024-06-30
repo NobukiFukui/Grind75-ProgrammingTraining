@@ -108,5 +108,73 @@ class Solution:
         return result
 ```
 
+# 3rd
+レビューコメントをもとに以下を修正
+・i, jの名前をpointer_a, pointer_bに
+・文字列の結合には+=を利用し，最後にresultを逆順にして返す
+・carryのチェックでif文ではなくtotal // 2を利用
 
+``` Python
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        # initialization
+        result = ""
+        pointer_a, pointer_b = len(a) - 1, len(b) - 1
+        carry = 0
+        # calculate binary sum
+        while pointer_a >= 0 or pointer_b >= 0:
+            total = carry
+            # check each digit
+            if pointer_a >= 0:
+                total += ord(a[pointer_a]) - ord("0")
+            if pointer_b >= 0:
+                total += ord(b[pointer_b]) - ord("0")
+            # proceed pointers
+            pointer_a -= 1
+            pointer_b -= 1
+            # check carrying forward
+            carry = total // 2
+            # check result
+            result += str(total % 2)
+        # check carrying forward at largest digit
+        if carry == 1:
+            result += str(carry)
+        return result[::-1] # reverse digits
+```
 
++= を使わずにlistにbinaryを入れて後でresultに結合という方法も用いたが，
+前者のほうが計算速度は速そう
+
+``` Python
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        # initialization 
+        result_list = []
+        pointer_a, pointer_b = len(a) - 1, len(b) - 1
+        carry = 0
+        # main loop for calculation of binary sum
+        while pointer_a >= 0 or pointer_b >= 0:
+            # total sum of carry forward
+            total = carry
+            # check each digit
+            if pointer_a >= 0:
+                total += ord(a[pointer_a]) - ord("0")
+            if pointer_b >= 0:
+                total += ord(b[pointer_b]) - ord("0")
+            # proceed pointers
+            pointer_a -= 1
+            pointer_b -= 1
+            # check carry forward
+            #  total = 0 -> carry = 0, result = "0"
+            #  total = 1 -> carry = 0, result = "1"
+            #  total = 2 -> carry = 1, result = "0"
+            #  total = 3 -> carry = 1, result = "1"
+            carry = total // 2            
+            # append result binary
+            result_list.append(str(total % 2))
+        # check carrying forward at largest digit
+        if carry == 1:
+            result_list.append(str(carry))
+        result = "".join(result_list)
+        return result[::-1]
+```
