@@ -178,3 +178,46 @@ class Solution:
         result = "".join(result_list)
         return result[::-1]
 ```
+
+# 4th
+小田さんのコメントをもとにさらに修正
+- 文字列結合に+=を使う場合は最適化が効く場合があるものの，リストにappendして最後にjoinがベストプラクティス ⇒ 3rdにて反映済み
+- 繰り返し出現する`total += ord(a[pointer_a]) - ord("0")`は関数化
+
+``` Python
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        def calculate_sum_digit(total, a, b, pointer_a, pointer_b):
+            if pointer_a >= 0:
+                total += ord(a[pointer_a]) - ord("0")
+            if pointer_b >= 0:
+                total += ord(b[pointer_b]) - ord("0")
+            return total
+        # initialization 
+        result_list = []
+        pointer_a, pointer_b = len(a) - 1, len(b) - 1
+        carry = 0
+        # main loop for calculation of binary sum
+        while pointer_a >= 0 or pointer_b >= 0:
+            # total sum of carry forward
+            total = carry
+            # check each digit
+            total = calculate_sum_digit(total, a, b, pointer_a, pointer_b)
+            # proceed pointers
+            pointer_a -= 1
+            pointer_b -= 1
+            # check carry forward
+            #  total = 0 -> carry = 0, result = "0"
+            #  total = 1 -> carry = 0, result = "1"
+            #  total = 2 -> carry = 1, result = "0"
+            #  total = 3 -> carry = 1, result = "1"
+            carry = total // 2            
+            # append result binary
+            result_list.append(str(total % 2))
+        # check carrying forward at largest digit
+        if carry == 1:
+            result_list.append(str(carry))
+        result = "".join(result_list)
+        return result[::-1]
+
+```
