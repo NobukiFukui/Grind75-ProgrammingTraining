@@ -65,3 +65,23 @@ class Solution:
         return max_depth
 ```
 
+# 4th
+odaさんのコメントをもとに変更
+pop してから、not node を確認する手もあるでしょう。その場合は、先頭の if not root もいらないかもしれません。
+
+``` Python
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        max_depth = 0
+        nodes_with_depth = [(root, 1)]
+        while nodes_with_depth:
+            node, depth = nodes_with_depth.pop()
+            if not node:
+                return 0
+            max_depth = max(depth, max_depth)
+            if node.left:
+                nodes_with_depth.append((node.left, depth + 1))
+            if node.right:
+                nodes_with_depth.append((node.right, depth + 1))
+        return max_depth
+```
